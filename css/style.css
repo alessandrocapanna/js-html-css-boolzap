@@ -58,7 +58,7 @@ li {
   color: grey;
   font-size: 10px;
 }
-i.fas {
+i {
   color: #b1b1b1;
   padding-left: 5px;
 }
@@ -110,15 +110,19 @@ i.fas {
 /* inizio search */
 .search {
   height: 25px;
+  display: flex;
+  background-color: #f5eaea;
 }
 .search i {
   line-height: 25px;
   font-size: 14px;
 }
 .search input {
-  width: 90%;
-  font-size: 10px;
+  flex-grow: 1;
+  font-size: 9px;
   border: none;
+  margin: 3px 4px;
+  border-radius: 5px;
 }
 /* fine search */
 
@@ -145,11 +149,31 @@ i.fas {
 /* inizio col messaggi */
 .messaggi {
   height: calc(90vh - 90px);
-  overflow: hidden;
+  overflow: auto;
   background-image: url(../img/mine.jpg);
 }
 .bot-bar {
   height: 40px;
   background-color: #f3eeea;
+  display: flex;
+  justify-content: space-between;
+}
+.bot-bar i {
+  line-height: 40px;
+}
+.bot-bar input {
+  margin: 5px 10px;
+  border: none;
+  flex-grow: 1;
+}
+.messaggi-inviati {
+  background-color: #d5f9ba;
+  padding: 10px;
+  border-radius: 10px;-
+}
+.messaggi-ricevuti {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
 }
 /* fine col messaggi */
