@@ -6,16 +6,16 @@
 
 
 .wrapper {
+  padding-top: 5vh;
   height: 100vh;
   background-image: linear-gradient(180deg, #009688 20%, #d8dbd5 20%);
 }
 .box {
-  height: 100vh;
+  height: 90vh;
   width: 900px;
   margin: auto;
   background-color: white;
-  border-top: 5vh solid #009688;
-  border-bottom: 5vh solid #d9dbd6;
+
 }
 .clearfix::after {
   content: "";
@@ -135,13 +135,21 @@ i {
 .contatti li {
   display: block;
   display: flex;
-  padding:5px 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding:0px 10px;
+  height: 55px;
 }
 .contatti p {
-  padding: 5px 10px;
+  padding: 0px 10px;
+  flex-grow: 1;
 }
 .contatti li:hover {
   background-color: #eaeaea;
+}
+.contatti li span  {
+  color: grey;
+  font-size: 10px;
 }
 /* fine contatti */
 /* fine col contatti */
@@ -166,14 +174,37 @@ i {
   border: none;
   flex-grow: 1;
 }
-.messaggi-inviati {
+.messaggi-inviati,
+.messaggi-ricevuti {
   background-color: #d5f9ba;
   padding: 10px;
-  border-radius: 10px;-
+  border-radius: 10px;
+  position: relative;
+  min-width: 30%;
+  max-width: 48%;
+  max-height: none;
+  margin: 5px 0;
+}
+.messaggi-ricevuti {
+  margin-right: auto;
+  margin-left: 10px;
+}
+.messaggi-inviati {
+  margin-left: auto;
+  margin-right: 10px;
+}
+.messaggi-inviati span,
+.messaggi-ricevuti span {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 8px;
+  color: gray;
 }
 .messaggi-ricevuti {
   background-color: white;
-  padding: 10px;
-  border-radius: 10px;
+}
+.template {
+  display: none;
 }
 /* fine col messaggi */
