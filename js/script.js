@@ -75,12 +75,20 @@ $('i.fa-paper-plane').click(
 // );
 
 
-$(".search input").keyup(
+$('.search input').keyup(
   function() {
     var value = $(this).val().toLowerCase();
-    $(".contatti p").each(
+    $('.contatti p').each(
       function() {
-        $(this).parents('.singolo-contatto').toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(this).parents('.singolo-contatto').toggle($(this).text().toLowerCase().indexOf(value) > -1);
+
+        // prova
+        // if ( $(this).text().toLowerCase().includes(value)) {
+        //   $(this).parents('.singolo-contatto').show();
+        // } else {
+        //   $(this).parents('.singolo-contatto').hide();
+        //
+        // }
       });
   }
 );
