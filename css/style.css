@@ -4,7 +4,9 @@
   box-sizing: border-box;
 }
 
-
+body {
+  min-width: 700px;
+}
 .wrapper {
   display: flex;
   justify-content: center;
@@ -142,8 +144,7 @@ i {
   height: 55px;
   width: 100%;
 }
-.contatti p {
-  padding: 0px 10px;
+.singolo-contatto > div {
   flex-grow: 1;
 }
 .contatti li:hover {

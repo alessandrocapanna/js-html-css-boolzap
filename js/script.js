@@ -43,10 +43,44 @@ $('i.fa-paper-plane').click(
 );
 
 
-// NOTE: per il search
-// var ricercaNome = $('.search input').val();
-// var contatti = [];
-// contatti.push()
-// if ($('.search input').val().includes() ) {
+// // NOTE: per il search contatti
+// var arrayContatti =[];
+// $( ".contatti .singolo-contatto  p" ).each(function() {
+//   arrayContatti.push($( this ).text());
+//   console.log([arrayContatti]);
+// });
 //
+// if ($('input').val() == arrayContatti) {
+//   alert('ciao');
 // }
+
+// $('.search input').keyup(
+//   function(){
+//     // salvo valore inserito in input
+//     var value = $('.search input').val().toLowerCase();
+//
+//     $( ".contatti .singolo-contatto  p" ).each(function(){
+//       // NOTE: creo una var nome contatti
+//       var nomiContatti = $(this).find('.contatti .singolo-contatto p ').text().toLowerCase();
+//
+//       if (nomiContatti.includes(value)) {
+//         $(this).show();
+//
+//       }else {
+//         $(this).hide();
+//       }
+//
+//     });
+//   }
+// );
+
+
+$(".search input").keyup(
+  function() {
+    var value = $(this).val().toLowerCase();
+    $(".contatti p").each(
+      function() {
+        $(this).parents('.singolo-contatto').toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+  }
+);
