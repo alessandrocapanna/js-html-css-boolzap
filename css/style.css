@@ -14,7 +14,8 @@
 }
 .box {
   height: 90%;
-  width: 900px;
+  min-width: 900px;
+
   background-color: white;
 }
 .clearfix::after {
