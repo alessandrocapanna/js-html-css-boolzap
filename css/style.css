@@ -6,16 +6,16 @@
 
 
 .wrapper {
-  padding-top: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items:center;
   height: 100vh;
   background-image: linear-gradient(180deg, #009688 20%, #d8dbd5 20%);
 }
 .box {
-  height: 90vh;
+  height: 90%;
   width: 900px;
-  margin: auto;
   background-color: white;
-
 }
 .clearfix::after {
   content: "";
@@ -41,10 +41,6 @@ img {
   border-radius: 50%;
   vertical-align: middle;
 }
-/* .img {
-  height: 40px;
-  width: 40px;
-} */
 
 li {
   display: inline-block;
@@ -123,7 +119,9 @@ i {
   border: none;
   margin: 3px 4px;
   border-radius: 5px;
+  padding-left: 20px;
 }
+
 /* fine search */
 
 /* inizio contatti */
@@ -133,12 +131,16 @@ i {
   padding: 0;
 }
 .contatti li {
+  width: 100%;
+}
+.singolo-contatto{
   display: block;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding:0px 10px;
   height: 55px;
+  width: 100%;
 }
 .contatti p {
   padding: 0px 10px;
@@ -155,6 +157,18 @@ i {
 /* fine col contatti */
 
 /* inizio col messaggi */
+.col-dx .singolo-contatto {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.col-dx .singolo-contatto p {
+  flex-grow: 1;
+}
+.col-dx .singolo-contatto img {
+  margin:0 0 5px 0;
+
+}
 .messaggi {
   height: calc(90vh - 90px);
   overflow: auto;
@@ -169,42 +183,46 @@ i {
 .bot-bar i {
   line-height: 40px;
 }
+.bot-bar i:last-child {
+  display: none;
+}
 .bot-bar input {
+  padding-left: 20px;
   margin: 5px 10px;
   border: none;
   flex-grow: 1;
 }
 .messaggi-inviati,
 .messaggi-ricevuti {
+  display: inline-block;
+  font-size: 12px;
   background-color: #d5f9ba;
-  padding: 10px;
+  padding: 10px 10px 13px 10px;
   border-radius: 10px;
   position: relative;
-  min-width: 30%;
-  max-width: 48%;
-  max-height: none;
+  min-width: 70px;
+  max-width: 60%;
+  word-wrap: break-word;
   margin: 5px 0;
+  float: right;
+  clear: both;
 }
 .messaggi-ricevuti {
   margin-right: auto;
   margin-left: 10px;
+  background-color: white;
+  float: left;
 }
 .messaggi-inviati {
   margin-left: auto;
   margin-right: 10px;
 }
 .messaggi-inviati span,
-.messaggi-ricevuti span {
+.messaggi-ricevuti  span {
   position: absolute;
   bottom: 5px;
   right: 5px;
   font-size: 8px;
   color: gray;
-}
-.messaggi-ricevuti {
-  background-color: white;
-}
-.template {
-  display: none;
 }
 /* fine col messaggi */
