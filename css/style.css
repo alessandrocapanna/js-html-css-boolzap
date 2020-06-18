@@ -226,4 +226,27 @@ i {
   font-size: 8px;
   color: gray;
 }
+.messaggi-inviati span i{
+  padding: 0 5px;
+}
+.messaggi-ricevuti  span i {
+  padding: 0 5px;
+}
+.hidden {
+  display: none;
+}
+.messaggi-ricevuti  span.drop,
+.messaggi-inviati span.drop{
+  bottom: -22px;
+  color:black;
+  background-color: white;
+  font-size: 12px;
+  width: 100px;
+  padding: 2px;
+  z-index: 100;
+
+}
+.messaggi-ricevuti  span.drop {
+  left: 0;
+}
 /* fine col messaggi */
