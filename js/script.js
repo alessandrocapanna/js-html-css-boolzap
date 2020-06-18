@@ -129,6 +129,7 @@ $(document).ready(
     }
     var ora = Hh + Mm
 
+    invioMessaggioConRisposta();
     // NOTE: al click su input cambio icona per invio mex
     var invioMessaggio = $('.bot-bar i:last-child');
     $('.bot-bar input').click(
@@ -138,41 +139,73 @@ $(document).ready(
       }
     );
 
+    // NOTE: per il search dei contatti
+    $('.search input').keyup(
+      function() {
+        var value = $(this).val().toLowerCase();
+        $('.contatti p').each(
+          function() {
+            // NOTE: copiata e incollata da w3sc
+            // $(this).parents('.singolo-contatto').toggle($(this).text().toLowerCase().indexOf(value) > -1);
 
-
-    $('.messaggi .messaggi-inviati,.messaggi .messaggi-ricevuti').mouseenter(
-      function(){
-        $(this).children('i').removeClass('hidden');
-
-        //al click sull'icona faccio vedere il cosetto x eliminare
-        $('.messaggi .messaggi-inviati i,.messaggi .messaggi-ricevuti i').click(
-          function(){
-            $('.drop').addClass('hidden');
-            $(this).parents('span').siblings('.drop').removeClass('hidden');
-
-            // NOTE:funzione per eliminare messaggio
-            $('span.drop').click(
-              function(){
-                $(this).parents('p').hide();
-              }
-            );
-          }
-        );
+            // prova mia che funziona  :D
+            if ( $(this).text().toLowerCase().includes(value)) {
+              $(this).parents('li').show();
+            } else {
+              $(this).parents('li').hide();
+            }
+          });
       }
     );
+
+    // NOTE: per cancellare messaggio
+    $(document).on('mouseenter', '.messaggi .messaggi-inviati,.messaggi .messaggi-ricevuti', function() {
+      // NOTE: mostro icona
+      $(this).find('i').removeClass('hidden');
+
+      //al click sull'icona faccio vedere il cosetto x eliminare
+      $('.messaggi .messaggi-inviati i,.messaggi .messaggi-ricevuti i').click(
+        function(){
+          $('.drop').addClass('hidden');
+
+          $(this).parents('span').siblings('.drop').removeClass('hidden')
+
+          // NOTE:funzione per eliminare messaggio
+          $('span.drop').click(
+            function(){
+              $(this).parents('p').hide();
+            }
+          );
+        }
+      );
+    });
+    // mouseleave al messaggio levo icona
+    $(document).on('mouseleave', '.messaggi .messaggi-inviati,.messaggi .messaggi-ricevuti',
+      function(){
+        $(this).find('i').addClass('hidden');
+      }
+    );
+
 
     // NOTE: per cambiare chat al click del contatto
     $('.contatti li').click(
       function(){
+        var imgClone = $(this).find('img').attr('src');
+        var nomeClone = $(this).find('p.titolo').text();
+
+        var imgAvatar = $('.col-dx .utente').find('img').attr('src', imgClone);
+        var nomeAvatar = $('.col-dx .utente').find('p.titolo').text( nomeClone);
+
+
         var dataContact = $(this).attr('data-contact');
 
         // NOTE: metto hidden a tutte
         $('.messaggi').addClass('hidden');
+        $('.messaggi').removeClass('active');
 
         // NOTE: levo hidden per cambiare chat
         var selettore ='.messaggi[data-chat="' + dataContact + '"]'
-        $(selettore).removeClass('hidden');
-        invioMessaggioConRisposta();
+        $(selettore).removeClass('hidden').addClass('active');
 
 
         // NOTE: per cambiare nome e img al contatto con cui chatto
@@ -183,45 +216,6 @@ $(document).ready(
     );
 
 
-    // NOTE:per cancellare il messaggio
-    // mouseenter al messaggio mostro icona
-    // $('.col-dx .messaggi p').mouseenter(
-    //   function(){
-    //
-    //     alert('ciao');
-        // $(this).children('span>i').removeClass('hidden');
-
-
-        //al click sull'icona faccio vedere il cosetto x eliminare
-        // $('.messaggi-inviati i,.messaggi-ricevuti i').click(
-        //   function(){
-        //     $('.drop').addClass('hidden');
-        //     $(this).parents('span').siblings('.drop').removeClass('hidden');
-        //
-        //     // NOTE:funzione per eliminare messaggio
-        //     $('span.drop').click(
-        //       function(){
-        //         $(this).parents('p').hide();
-        //       }
-        //     );
-        //   }
-        // );
-    //   }
-    // );
-    // mouseleave al messaggio levo icona
-    // $('.messaggi .messaggi-inviati,.messaggi .messaggi-ricevuti').mouseleave(
-    //   function(){
-    //     $(this).find('i').addClass('hidden');
-    //   }
-    // );
-
-    // $('p.messaggi-ricevuti').mouseenter(
-    //   function(){
-    //     console.log(this);
-    //     $(this).find('i.hidden').removeClass('hidden');
-    //   }
-    // );
-
 
     // NOTE: al click su icona invio
     function invioMessaggioConRisposta(){
@@ -229,7 +223,7 @@ $(document).ready(
         function(){
           // NOTE: invio del mex
           var messaggioInviato = '<p class="messaggi-inviati">' + $('.bot-bar input').val() + '<span>' +   '<i class="fas fa-chevron-down hidden">'+'</i>' + ora + '</i>' + '</span>' + '<span class="drop hidden">' + 'Elimina messaggio' + '</span>' + '</p>';
-          $('.messaggi ').append(messaggioInviato);
+          $('.messaggi.active').append(messaggioInviato);
           $('.bot-bar input').val('');
           // NOTE: rimetto icona del microfono
           $('.bot-bar i.fa-paper-plane').hide();
@@ -247,7 +241,7 @@ $(document).ready(
         if (secondi == 0) {
           clearInterval(secondiCount);
           var messaggioRicevuto = '<p class="messaggi-ricevuti">' + 'ok' + '<span>'  + '<i class="fas fa-chevron-down hidden">'+'</i>'+ ora + '</span>' + '<span class="drop hidden">' + 'Elimina messaggio' + '</span>' + '</p>';
-          $('.messaggi ').append(messaggioRicevuto);
+          $('.messaggi.active ').append(messaggioRicevuto);
         }else{
           secondi--;
         }

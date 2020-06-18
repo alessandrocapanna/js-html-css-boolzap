@@ -235,6 +235,9 @@ i {
 .hidden {
   display: none;
 }
+.active {
+  display: block;
+}
 .messaggi-ricevuti  span.drop,
 .messaggi-inviati span.drop{
   bottom: -22px;
