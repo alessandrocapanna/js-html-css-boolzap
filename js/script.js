@@ -166,7 +166,6 @@ $(document).ready(
       function(){
         var dataContact = $(this).attr('data-contact');
 
-
         // NOTE: metto hidden a tutte
         $('.messaggi').addClass('hidden');
 
