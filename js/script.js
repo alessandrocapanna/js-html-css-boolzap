@@ -10,22 +10,28 @@ $(document).ready(
     }
     var ora = Hh + Mm
 
-    invioMessaggioConRisposta();
+
+
 
     // NOTE: al click su input cambio icona per invio mex
     var invioMessaggio = $('.bot-bar i:last-child');
-    $('.bot-bar input').focus(
-      function (){
+    $('.bot-bar input').keypress(
+      function (event){
         $('i.fa-microphone').hide();
         $('i.fa-paper-plane').show();
+        var messaggioVal = $('.bot-bar input').val();
+        if ((event.which == 13) && (messaggioVal != '') ){
+          invioMessaggioConRisposta();
+        }
       }
     );
-    // $('.bot-bar input').blur(
-    //   function (){
-    //     $('i.fa-microphone').show();
-    //     $('i.fa-paper-plane').hide();
-    //   }
-    // );
+    $('.bot-bar input').blur(
+      function (){
+        $('i.fa-microphone').show();
+        $('i.fa-paper-plane').hide();
+      }
+    );
+
 
 
     // NOTE: per il search dei contatti
@@ -101,12 +107,33 @@ $(document).ready(
     );
 
 
+    // // NOTE: al click su icona invio
+    // function invioMessaggioConRisposta(){
+    //   // var invio = $('i.fa-paper-plane');
+    //   // var invio 2 = (event.which === 13);
+    //   $('i.fa-paper-plane').click(
+    //     function(){
+    //       // NOTE: invio del mex
+    //       var messaggioInviato = '<p class="messaggi-inviati">' + $('.bot-bar input').val() + '<span>' +   '<i class="fas fa-chevron-down hidden">'+'</i>' + ora + '</i>' + '</span>' + '<span class="drop">' + 'Elimina messaggio' + '</span>' + '</p>';
+    //       $('.messaggi.active').append(messaggioInviato);
+    //       $('.bot-bar input').val('');
+    //       // NOTE: rimetto icona del microfono
+    //       $('.bot-bar i.fa-paper-plane').hide();
+    //       $('.bot-bar i.fa-microphone').show();
+    //
+    //       rispostaCount(1);
+    //
+    //       // NOTE: per scolltop
+    //       $('.messaggi.active').scrollTop($('.messaggi.active').prop('scrollHeight'));
+    //
+    //     }
+    //   );
+    // }
     // NOTE: al click su icona invio
     function invioMessaggioConRisposta(){
       // var invio = $('i.fa-paper-plane');
       // var invio 2 = (event.which === 13);
-      $('i.fa-paper-plane').click(
-        function(){
+
           // NOTE: invio del mex
           var messaggioInviato = '<p class="messaggi-inviati">' + $('.bot-bar input').val() + '<span>' +   '<i class="fas fa-chevron-down hidden">'+'</i>' + ora + '</i>' + '</span>' + '<span class="drop">' + 'Elimina messaggio' + '</span>' + '</p>';
           $('.messaggi.active').append(messaggioInviato);
@@ -120,8 +147,7 @@ $(document).ready(
           // NOTE: per scolltop
           $('.messaggi.active').scrollTop($('.messaggi.active').prop('scrollHeight'));
 
-        }
-      );
+
     }
 
 

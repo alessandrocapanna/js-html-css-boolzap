@@ -176,6 +176,10 @@ i {
   overflow: auto;
   background-image: url(../img/mine.jpg);
 }
+.messaggi  h3 {
+  text-align: center;
+  line-height: calc(90vh - 90px);
+}
 .bot-bar {
   height: 40px;
   background-color: #f3eeea;
@@ -250,7 +254,8 @@ i {
 .hidden {
   display: none;
 }
-.active {
-  display: block !important;
+.messaggi-inviati span.drop.active ,
+.messaggi-ricevuti  span.drop.active {
+  display: block ;
 }
 /* fine col messaggi */
