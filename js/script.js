@@ -11,14 +11,22 @@ $(document).ready(
     var ora = Hh + Mm
 
     invioMessaggioConRisposta();
+
     // NOTE: al click su input cambio icona per invio mex
     var invioMessaggio = $('.bot-bar i:last-child');
-    $('.bot-bar input').click(
+    $('.bot-bar input').focus(
       function (){
         $('i.fa-microphone').hide();
         $('i.fa-paper-plane').show();
       }
     );
+    // $('.bot-bar input').blur(
+    //   function (){
+    //     $('i.fa-microphone').show();
+    //     $('i.fa-paper-plane').hide();
+    //   }
+    // );
+
 
     // NOTE: per il search dei contatti
     $('.search input').keyup(
@@ -43,23 +51,23 @@ $(document).ready(
     $(document).on('mouseenter', '.messaggi .messaggi-inviati,.messaggi .messaggi-ricevuti', function() {
       // NOTE: mostro icona
       $(this).find('i').removeClass('hidden');
-
-      //al click sull'icona faccio vedere il cosetto x eliminare
-      $('.messaggi .messaggi-inviati i,.messaggi .messaggi-ricevuti i').click(
-        function(){
-          $('.drop').addClass('hidden');
-
-          $(this).parents('span').siblings('.drop').removeClass('hidden')
-
-          // NOTE:funzione per eliminare messaggio
-          $('span.drop').click(
-            function(){
-              $(this).parents('p').hide();
-            }
-          );
-        }
-      );
     });
+    //al click sull'icona faccio vedere il cosetto x eliminare
+    $(document).on('click', '.messaggi .messaggi-inviati i,.messaggi .messaggi-ricevuti i',
+      function(){
+
+        $('.messaggi i').not(this).parents('span').siblings('.drop').removeClass('active');
+        $(this).parents('span').siblings('.drop').toggleClass('active');
+
+
+        // NOTE:funzione per eliminare messaggio
+        $('span.drop').click(
+          function(){
+            $(this).parents('p').hide();
+          }
+        );
+      }
+    );
     // mouseleave al messaggio levo icona
     $(document).on('mouseleave', '.messaggi .messaggi-inviati,.messaggi .messaggi-ricevuti',
       function(){
@@ -93,13 +101,14 @@ $(document).ready(
     );
 
 
-
     // NOTE: al click su icona invio
     function invioMessaggioConRisposta(){
+      // var invio = $('i.fa-paper-plane');
+      // var invio 2 = (event.which === 13);
       $('i.fa-paper-plane').click(
         function(){
           // NOTE: invio del mex
-          var messaggioInviato = '<p class="messaggi-inviati">' + $('.bot-bar input').val() + '<span>' +   '<i class="fas fa-chevron-down hidden">'+'</i>' + ora + '</i>' + '</span>' + '<span class="drop hidden">' + 'Elimina messaggio' + '</span>' + '</p>';
+          var messaggioInviato = '<p class="messaggi-inviati">' + $('.bot-bar input').val() + '<span>' +   '<i class="fas fa-chevron-down hidden">'+'</i>' + ora + '</i>' + '</span>' + '<span class="drop">' + 'Elimina messaggio' + '</span>' + '</p>';
           $('.messaggi.active').append(messaggioInviato);
           $('.bot-bar input').val('');
           // NOTE: rimetto icona del microfono
@@ -108,23 +117,29 @@ $(document).ready(
 
           rispostaCount(1);
 
+          // NOTE: per scolltop
+          $('.messaggi.active').scrollTop($('.messaggi.active').prop('scrollHeight'));
+
         }
       );
     }
+
+
+
 
     // NOTE: funzione per risposta
     function rispostaCount(secondi){
       var secondiCount = setInterval(function(){
         if (secondi == 0) {
           clearInterval(secondiCount);
-          var messaggioRicevuto = '<p class="messaggi-ricevuti">' + 'ok' + '<span>'  + '<i class="fas fa-chevron-down hidden">'+'</i>'+ ora + '</span>' + '<span class="drop hidden">' + 'Elimina messaggio' + '</span>' + '</p>';
+          var messaggioRicevuto = '<p class="messaggi-ricevuti">' + 'ok' + '<span>'  + '<i class="fas fa-chevron-down hidden">'+'</i>'+ ora + '</span>' + '<span class="drop">' + 'Elimina messaggio' + '</span>' + '</p>';
           $('.messaggi.active ').append(messaggioRicevuto);
+          $('.messaggi.active').scrollTop($('.messaggi.active').prop('scrollHeight'));
         }else{
           secondi--;
         }
       },1000);
     }
-
 
   }
 );
