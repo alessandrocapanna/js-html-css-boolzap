@@ -11,8 +11,6 @@ $(document).ready(
     var ora = Hh + Mm
 
 
-
-
     // NOTE: al click su input cambio icona per invio mex
     var invioMessaggio = $('.bot-bar i:last-child');
     $('.bot-bar input').keypress(
@@ -25,6 +23,7 @@ $(document).ready(
         }
       }
     );
+    // NOTE: per rimettere il microfono
     $('.bot-bar input').blur(
       function (){
         $('i.fa-microphone').show();
@@ -33,17 +32,13 @@ $(document).ready(
     );
 
 
-
     // NOTE: per il search dei contatti
     $('.search input').keyup(
       function() {
         var value = $(this).val().toLowerCase();
+
         $('.contatti p').each(
           function() {
-            // NOTE: copiata e incollata da w3sc
-            // $(this).parents('.singolo-contatto').toggle($(this).text().toLowerCase().indexOf(value) > -1);
-
-            // prova mia che funziona  :D
             if ( $(this).text().toLowerCase().includes(value)) {
               $(this).parents('li').show();
             } else {
@@ -58,18 +53,16 @@ $(document).ready(
       // NOTE: mostro icona
       $(this).find('i').removeClass('hidden');
     });
-    //al click sull'icona faccio vedere il cosetto x eliminare
+    // al click sull'icona faccio vedere la drop x eliminare
     $(document).on('click', '.messaggi .messaggi-inviati i,.messaggi .messaggi-ricevuti i',
       function(){
-
         $('.messaggi i').not(this).parents('span').siblings('.drop').removeClass('active');
         $(this).parents('span').siblings('.drop').toggleClass('active');
-
 
         // NOTE:funzione per eliminare messaggio
         $('span.drop').click(
           function(){
-            $(this).parents('p').hide();
+            $(this).parents('p').remove();
           }
         );
       }
@@ -85,13 +78,13 @@ $(document).ready(
     // NOTE: per cambiare chat al click del contatto
     $('.contatti li').click(
       function(){
+        // NOTE: prendo immagine e nome del contatto
         var imgClone = $(this).find('img').attr('src');
         var nomeClone = $(this).find('p.titolo').text();
 
-
+        // NOTE: e li cambio a secoda del contatto cliccato
         var imgAvatar = $('.col-dx .utente').find('img').attr('src', imgClone);
         var nomeAvatar = $('.col-dx .utente').find('p.titolo').text(nomeClone).append('<br>' + '<span class="sottotitolo">'+'ultimo accesso: mai'+ '</span>');
-
 
         var dataContact = $(this).attr('data-contact');
 
@@ -107,50 +100,21 @@ $(document).ready(
     );
 
 
-    // // NOTE: al click su icona invio
-    // function invioMessaggioConRisposta(){
-    //   // var invio = $('i.fa-paper-plane');
-    //   // var invio 2 = (event.which === 13);
-    //   $('i.fa-paper-plane').click(
-    //     function(){
-    //       // NOTE: invio del mex
-    //       var messaggioInviato = '<p class="messaggi-inviati">' + $('.bot-bar input').val() + '<span>' +   '<i class="fas fa-chevron-down hidden">'+'</i>' + ora + '</i>' + '</span>' + '<span class="drop">' + 'Elimina messaggio' + '</span>' + '</p>';
-    //       $('.messaggi.active').append(messaggioInviato);
-    //       $('.bot-bar input').val('');
-    //       // NOTE: rimetto icona del microfono
-    //       $('.bot-bar i.fa-paper-plane').hide();
-    //       $('.bot-bar i.fa-microphone').show();
-    //
-    //       rispostaCount(1);
-    //
-    //       // NOTE: per scolltop
-    //       $('.messaggi.active').scrollTop($('.messaggi.active').prop('scrollHeight'));
-    //
-    //     }
-    //   );
-    // }
-    // NOTE: al click su icona invio
+    // NOTE: funzione per invio del messaggio con la funziona della risposta
     function invioMessaggioConRisposta(){
-      // var invio = $('i.fa-paper-plane');
-      // var invio 2 = (event.which === 13);
+      // NOTE: invio del mex
+      var messaggioInviato = '<p class="messaggi-inviati">' + $('.bot-bar input').val() + '<span>' +   '<i class="fas fa-chevron-down hidden">'+'</i>' + ora + '</i>' + '</span>' + '<span class="drop">' + 'Elimina messaggio' + '</span>' + '</p>';
+      $('.messaggi.active').append(messaggioInviato);
+      $('.bot-bar input').val('');
+      // NOTE: rimetto icona del microfono
+      $('.bot-bar i.fa-paper-plane').hide();
+      $('.bot-bar i.fa-microphone').show();
 
-          // NOTE: invio del mex
-          var messaggioInviato = '<p class="messaggi-inviati">' + $('.bot-bar input').val() + '<span>' +   '<i class="fas fa-chevron-down hidden">'+'</i>' + ora + '</i>' + '</span>' + '<span class="drop">' + 'Elimina messaggio' + '</span>' + '</p>';
-          $('.messaggi.active').append(messaggioInviato);
-          $('.bot-bar input').val('');
-          // NOTE: rimetto icona del microfono
-          $('.bot-bar i.fa-paper-plane').hide();
-          $('.bot-bar i.fa-microphone').show();
+      rispostaCount(1);
 
-          rispostaCount(1);
-
-          // NOTE: per scolltop
-          $('.messaggi.active').scrollTop($('.messaggi.active').prop('scrollHeight'));
-
-
+      // NOTE: per scolltop
+      $('.messaggi.active').scrollTop($('.messaggi.active').prop('scrollHeight'));
     }
-
-
 
 
     // NOTE: funzione per risposta
